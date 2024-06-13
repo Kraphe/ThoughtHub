@@ -24,6 +24,10 @@ export async function hashFunction(message:string) : Promise<string> {
 	return base64String;
   }
 
+userRouter.get('/',async(c)=>{
+	return c.json({msg:"meenen"});
+})
+
 
 
 userRouter.post('/signup', async (c) => {
@@ -41,6 +45,7 @@ userRouter.post('/signup', async (c) => {
 
 	if(validate.error)
 		{
+			console.log(body);
 			c.status(403);
 			const error=validate.error.issues[0].message;
 			if(error==="Required")
@@ -91,8 +96,8 @@ userRouter.post('/signin', async (c) => {
 		email: z.string().email(),
 		password: z.string()
 	})
+	console.log(body);
 	const validate = signinInput.safeParse(body);
-
 	if(validate.error)
 		{
 			c.status(403);
